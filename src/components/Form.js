@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { AlertContext } from '../context/alert/alertContext'
+import { ModalContext } from '../context/modal/modalContext'
 import { FirebaseContext } from '../context/firebase/firebaseContext'
 
 export const Form = () => {
@@ -7,6 +8,7 @@ export const Form = () => {
 	const [value, setValue] = useState('')
 	const [todos, setTodos] = useState([])
 	const alert = useContext(AlertContext)
+	const modal = useContext(ModalContext)
 	const firebase = useContext(FirebaseContext)
 
 	const submitHandler = (event) => {
@@ -24,6 +26,7 @@ export const Form = () => {
 					})
 				setName('')
 				setTodos([])
+				modal.hide()
 			} else {
 				alert.show('Добавьте хотя бы одну задачу!')
 			}
