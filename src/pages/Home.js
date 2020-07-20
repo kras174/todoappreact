@@ -34,8 +34,10 @@ export const Home = () => {
 			<hr />
 			{loading ? (
 				<Loader />
-			) : (
+			) : notes.length > 0 ? (
 				<Notes notes={notes} onRemove={removeNote} />
+			) : (
+				<h1>Заметок пока нет =(</h1>
 			)}
 		</Fragment>
 	)
