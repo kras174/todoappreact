@@ -8,6 +8,7 @@ import {
 	REMOTE_NOTE,
 	ADD_NOTE,
 	FETCH_NOTES,
+	UPDATE_NOTE,
 } from '../types'
 
 const url = process.env.REACT_APP_DB_URL
@@ -55,7 +56,7 @@ export const FirebaseState = ({ children }) => {
 			}
 
 			dispatch({ type: ADD_NOTE, payload })
-			fetchNotes()
+			if (state.notes.length === 0) fetchNotes()
 		} catch (e) {
 			throw new Error(e.message)
 		}
@@ -65,7 +66,21 @@ export const FirebaseState = ({ children }) => {
 			await axios.delete(`${url}/notes/${id}.json`)
 
 			dispatch({ type: REMOTE_NOTE, payload: id })
-			fetchNotes()
+			if (state.notes.length === 0) fetchNotes()
+		} catch (e) {
+			throw new Error(e.message)
+		}
+	}
+	const updateNote = async (id, title, todos) => {
+		const note = {
+			title,
+			todos,
+		}
+
+		try {
+			await axios.patch(`${url}/notes/${id}.json`, note)
+
+			dispatch({ type: UPDATE_NOTE, payload: state.notes })
 		} catch (e) {
 			throw new Error(e.message)
 		}
@@ -78,6 +93,7 @@ export const FirebaseState = ({ children }) => {
 				addNote,
 				removeNote,
 				fetchNotes,
+				updateNote,
 				loading: state.loading,
 				notes: state.notes,
 			}}

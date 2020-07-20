@@ -4,6 +4,7 @@ import {
 	ADD_NOTE,
 	FETCH_NOTES,
 	REMOTE_NOTE,
+	UPDATE_NOTE,
 } from '../types'
 
 const handlers = {
@@ -21,6 +22,10 @@ const handlers = {
 	[REMOTE_NOTE]: (state, { payload }) => ({
 		...state,
 		notes: state.notes.filter((note) => note.id !== payload),
+	}),
+	[UPDATE_NOTE]: (state, { payload }) => ({
+		...state,
+		notes: payload,
 	}),
 	DEFAULT: (state) => state,
 }

@@ -7,6 +7,7 @@ export const HIDE_LOADER = 'HIDE_LOADER'
 export const ADD_NOTE = 'ADD_NOTE'
 export const FETCH_NOTES = 'FETCH_NOTES'
 export const REMOTE_NOTE = 'REMOTE_NOTE'
+export const UPDATE_NOTE = 'UPDATE_NOTE'
 
 export const SHOW_MODAL = 'SHOW_MODAL'
 export const HIDE_MODAL = 'HIDE_MODAL'

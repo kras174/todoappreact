@@ -59,6 +59,40 @@ code {
 		}
 	}
 }
+.todo-page {
+	.todo-header {
+		display: flex;
+		text-align: center;
+		margin: 30px auto;
+		.editTitle-Button {
+			cursor: pointer;
+			margin: auto 30px;
+			padding: 2px 8px;
+			border: 2px solid #333;
+			color: #333;
+			border-radius: 5px;
+			transition: all 0.2s ease-in-out;
+			&:hover {
+				color: #fff;
+				background: #333;
+			}
+		}
+	}
+	.todo-footer {
+		display: flex;
+		margin: 30px auto;
+		button {
+			margin-right: 5px;
+			&:nth-child(1) {
+				flex: 1;
+			}
+			&:nth-child(2) {
+				flex: 1;
+			}
+		}
+	}
+}
+
 .alert {
 	position: absolute;
 	right: 20px;
