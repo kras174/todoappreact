@@ -20,10 +20,10 @@ export default function TodoList({ todos }) {
 									</label> */}
 
 										<li
-											className="not-complited"
+											className={todo.isCompleted ? 'completed': 'not-completed'}
 											key={index}
 										>
-											{todo}
+											{todo.title}
 										</li>
 									</ul>
 								</div>

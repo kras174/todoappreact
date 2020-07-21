@@ -1,11 +1,9 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
-import { AlertContext } from '../context/alert/alertContext'
 import TodoList from './TodoList'
 import { Link } from 'react-router-dom'
 
 export const Notes = ({ notes, onRemove }) => {
-	const alert = useContext(AlertContext)
 
 	return (
 		<TransitionGroup component="ul" className="list-group">

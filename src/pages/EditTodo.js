@@ -51,7 +51,6 @@ export default function EditTodo(props) {
 					type="button"
 					className="btn btn-outline-success btn-sm"
 					onClick={() => {
-						alert.show('Заметка успешно сохранена!', 'success')
 						if (title) currentNote.title = title
 						else {
 							alert.show(
@@ -66,6 +65,7 @@ export default function EditTodo(props) {
 							currentNote.title,
 							currentNote.todos
 						)
+						alert.show('Заметка успешно сохранена!', 'success')
 						props.history.push('/')
 					}}
 				>

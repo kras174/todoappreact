@@ -79,7 +79,7 @@ export const Form = () => {
 				<ul>
 					{todos.length > 0
 						? todos.map((todo, index) => (
-								<li key={index}>{todo}</li>
+								<li key={index}>{todo.title}</li>
 						  ))
 						: null}
 				</ul>
