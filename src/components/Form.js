@@ -36,8 +36,13 @@ export const Form = () => {
 	}
 
 	const addTodo = () => {
+		let todo = {}
 		if (value.trim()) {
-			setTodos([...todos, value])
+			todo = {
+				title: value,
+				isCompleted: false,
+			}
+			setTodos([...todos, todo])
 			setValue('')
 		} else {
 			alert.show('Введите текст задачи!')

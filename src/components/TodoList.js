@@ -19,7 +19,12 @@ export default function TodoList({ todos }) {
 										{todo}
 									</label> */}
 
-										<li key={index}>{todo}</li>
+										<li
+											className="not-complited"
+											key={index}
+										>
+											{todo}
+										</li>
 									</ul>
 								</div>
 							</div>
