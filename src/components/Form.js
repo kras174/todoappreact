@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { AlertContext } from "../context/alert/alertContext";
 import { ModalContext } from "../context/modal/modalContext";
 import { FirebaseContext } from "../context/firebase/firebaseContext";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 export const Form = () => {
   const [name, setName] = useState("");
@@ -25,8 +26,6 @@ export const Form = () => {
           .catch(() => {
             alert.show("Что-то пошло не так", "danger");
           });
-        setName("");
-        setTodos([]);
         modal.hide();
       } else {
         alert.show("Добавьте хотя бы одну задачу!");
@@ -80,6 +79,37 @@ export const Form = () => {
           onChange={(e) => setName(e.target.value)}
         />
       </div>
+      <hr />
+      <TransitionGroup component="div" className="form-group todos-group">
+        {todos.length > 0
+          ? todos.map((todo, index) => (
+              <CSSTransition key={index} classNames={"todo"} timeout={500}>
+                <div className="todo-group">
+                  <div className="check-control">
+                    <input
+                      type="checkbox"
+                      className="form-check-input"
+                      onChange={(e) => changeTodoStatusHandler(index)}
+                    />
+                  </div>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Введите задачу"
+                    value={todo.title}
+                    onChange={(e) => changeTodoTitleHandler(index, e)}
+                  />
+                  <input
+                    className="btn btn-danger"
+                    type="button"
+                    value="X"
+                    onClick={() => deleteTodoHandler(index)}
+                  />
+                </div>
+              </CSSTransition>
+            ))
+          : null}
+      </TransitionGroup>
       <div className="form-group add-todos-group">
         <input
           type="text"
@@ -95,34 +125,7 @@ export const Form = () => {
           onClick={addTodoHandler}
         />
       </div>
-      <div className="form-group todos-group">
-        {todos.length > 0
-          ? todos.map((todo, index) => (
-              <div className="todo-group" key={index}>
-                <div className="check-control">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    onChange={(e) => changeTodoStatusHandler(index)}
-                  />
-                </div>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Введите задачу"
-                  value={todo.title}
-                  onChange={(e) => changeTodoTitleHandler(index, e)}
-                />
-                <input
-                  className="btn btn-danger"
-                  type="button"
-                  value="X"
-                  onClick={() => deleteTodoHandler(index)}
-                />
-              </div>
-            ))
-          : null}
-      </div>
+
       <div className="form-group">
         <input
           className="btn btn-success"

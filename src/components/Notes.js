@@ -14,7 +14,6 @@ export const Notes = ({ notes, onRemove }) => {
                 <strong>{note.title}</strong>
                 <hr />
                 <TodoList todos={note.todos} />
-                {/* <small>{note.date}</small> */}
               </div>
             </li>
           </Link>

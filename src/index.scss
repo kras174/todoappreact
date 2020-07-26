@@ -218,6 +218,20 @@ form {
   animation: note 800ms ease-in alternate-reverse;
 }
 
+.todo-enter {
+  opacity: 0;
+}
+
+.todo-exit-active {
+  transition: opacity 350ms ease-out;
+  opacity: 0;
+}
+
+.todo-enter-active {
+  transition: opacity 350ms ease-out;
+  opacity: 1;
+}
+
 @keyframes note {
   0% {
     transform: translateX(0);
