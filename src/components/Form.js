@@ -108,6 +108,7 @@ export const Form = ({ id, currentNote }) => {
                       type="checkbox"
                       className="form-check-input"
                       onChange={(e) => changeTodoStatusHandler(index)}
+                      checked={todo.isCompleted}
                     />
                   </div>
                   <input
