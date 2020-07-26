@@ -1,96 +1,119 @@
-import React, { useState, useContext } from 'react'
-import { AlertContext } from '../context/alert/alertContext'
-import { ModalContext } from '../context/modal/modalContext'
-import { FirebaseContext } from '../context/firebase/firebaseContext'
+import React, { useState, useContext } from "react";
+import { AlertContext } from "../context/alert/alertContext";
+import { ModalContext } from "../context/modal/modalContext";
+import { FirebaseContext } from "../context/firebase/firebaseContext";
 
 export const Form = () => {
-	const [name, setName] = useState('')
-	const [value, setValue] = useState('')
-	const [todos, setTodos] = useState([])
-	const alert = useContext(AlertContext)
-	const modal = useContext(ModalContext)
-	const firebase = useContext(FirebaseContext)
+  const [name, setName] = useState("");
+  const [value, setValue] = useState("");
+  const [todos, setTodos] = useState([]);
+  const [todoTitle, setTodoTitle] = useState([]);
+  const alert = useContext(AlertContext);
+  const modal = useContext(ModalContext);
+  const firebase = useContext(FirebaseContext);
 
-	const submitHandler = (event) => {
-		event.preventDefault()
+  const submitHandler = (event) => {
+    event.preventDefault();
 
-		if (name.trim()) {
-			if (todos.length > 0) {
-				firebase
-					.addNote(name.trim(), todos)
-					.then(() => {
-						alert.show('Заметка создана успешно!', 'success')
-					})
-					.catch(() => {
-						alert.show('Что-то пошло не так', 'danger')
-					})
-				setName('')
-				setTodos([])
-				modal.hide()
-			} else {
-				alert.show('Добавьте хотя бы одну задачу!')
-			}
-		} else {
-			alert.show('Введите текст заметки!')
-		}
-	}
+    if (name.trim()) {
+      if (todos.length > 0) {
+        firebase
+          .addNote(name.trim(), todos)
+          .then(() => {
+            alert.show("Заметка создана успешно!", "success");
+          })
+          .catch(() => {
+            alert.show("Что-то пошло не так", "danger");
+          });
+        setName("");
+        setTodos([]);
+        modal.hide();
+      } else {
+        alert.show("Добавьте хотя бы одну задачу!");
+      }
+    } else {
+      alert.show("Введите текст заметки!");
+    }
+  };
 
-	const addTodo = () => {
-		let todo = {}
-		if (value.trim()) {
-			todo = {
-				title: value,
-				isCompleted: false,
-			}
-			setTodos([...todos, todo])
-			setValue('')
-		} else {
-			alert.show('Введите текст задачи!')
-		}
-	}
+  const addTodo = () => {
+    let todo = {};
+    if (value.trim()) {
+      todo = {
+        title: value,
+        isCompleted: false,
+      };
+      setTodos([...todos, todo]);
+      setValue("");
+    } else {
+      alert.show("Введите текст задачи!");
+    }
+  };
 
-	return (
-		<form onSubmit={submitHandler}>
-			<div className="form-group">
-				<input
-					type="text"
-					className="form-control"
-					placeholder="Введите название заметки"
-					value={name}
-					onChange={(e) => setName(e.target.value)}
-				/>
-			</div>
-			<div className="form-group todos-group">
-				<input
-					type="text"
-					className="form-control"
-					placeholder="Введите задачу"
-					value={value}
-					onChange={(e) => setValue(e.target.value)}
-				/>
-				<input
-					className="btn btn-warning"
-					type="button"
-					value="Добавить задачу"
-					onClick={addTodo}
-				/>
-			</div>
-			<div className="form-group">
-				<ul>
-					{todos.length > 0
-						? todos.map((todo, index) => (
-								<li key={index}>{todo.title}</li>
-						  ))
-						: null}
-				</ul>
-			</div>
-			<div className="form-group">
-				<input
-					className="btn btn-success"
-					type="submit"
-					value="Создать заметку"
-				/>
-			</div>
-		</form>
-	)
-}
+  const deleteTodo = (index) => {
+    let todo = [...todos];
+    todo.splice(index, 1);
+    setTodos(todo);
+    alert.show("Задача удалена");
+  };
+
+  return (
+    <form onSubmit={submitHandler}>
+      <div className="form-group">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Введите название заметки"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+      </div>
+      <div className="form-group add-todos-group">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Введите задачу"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
+        <input
+          className="btn btn-warning"
+          type="button"
+          value="+"
+          onClick={addTodo}
+        />
+      </div>
+      <div className="form-group todos-group">
+        {todos.length > 0
+          ? todos.map((todo, index) => (
+              <div className="todo-group" key={index}>
+                <div className="check-control">
+                  <input type="checkbox" className="form-check-input" />
+                </div>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Введите задачу"
+                  value={todo.title}
+                  onChange={(e) => setTodoTitle(e.target.value)}
+                />
+                <input
+                  className="btn btn-danger"
+                  type="button"
+                  value="X"
+                  onClick={deleteTodo.bind(this, index)}
+                />
+              </div>
+            ))
+          : null}
+      </div>
+      <div className="form-group">
+        <input
+          className="btn btn-success"
+          type="submit"
+          value="Создать заметку"
+        />
+      </div>
+    </form>
+  );
+};

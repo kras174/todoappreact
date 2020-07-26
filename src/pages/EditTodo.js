@@ -1,69 +1,22 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { FirebaseContext } from "../context/firebase/firebaseContext";
 import { AlertContext } from "../context/alert/alertContext";
 import TodoList from "../components/TodoList";
 
 export default function EditTodo(props) {
-  const { notes, updateNote, removeNote } = useContext(FirebaseContext);
+  const { notes, removeNote } = useContext(FirebaseContext);
   const alert = useContext(AlertContext);
-
-  const [title, setTitle] = useState("");
-  const [titleEdit, setTitleEdit] = useState(false);
 
   let { id } = useParams();
 
   let currentNote = notes.filter((note) => note.id === id)[0];
 
-  const editTitleHandler = () => {
-    setTitleEdit(true);
-    setTitle(currentNote.title);
-  };
+  const editHandler = () => {};
 
   return (
     <div className="todo-page">
       <div className="todo-header">
-        {!titleEdit ? (
-          <>
-            <h1>{currentNote.title}</h1>
-            <span className="editButton" onClick={editTitleHandler}>
-              ред
-            </span>
-          </>
-        ) : (
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Введите название заметки"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        )}
-      </div>
-      <div className="todo-body">
-        <TodoList todos={currentNote.todos} editPage={true} />
-      </div>
-      <div className="todo-footer">
-        <button
-          type="button"
-          className="btn btn-outline-success btn-sm"
-          onClick={() => {
-            if (title) currentNote.title = title;
-            else {
-              alert.show(
-                "Поле с именем заметки не может быть пустым!",
-                "warning"
-              );
-              return;
-            }
-
-            updateNote(currentNote.id, currentNote.title, currentNote.todos);
-            alert.show("Заметка успешно сохранена!", "success");
-            props.history.push("/");
-          }}
-        >
-          Сохранить заметку
-        </button>
         <button
           type="button"
           className="btn btn-outline-warning btn-sm"
@@ -71,7 +24,7 @@ export default function EditTodo(props) {
             props.history.push("/");
           }}
         >
-          Отменить заметку
+          Назад
         </button>
         <button
           type="button"
@@ -83,6 +36,20 @@ export default function EditTodo(props) {
           }}
         >
           Удалить заметку
+        </button>
+      </div>
+      <div className="todo-body">
+        <h1>{currentNote.title}</h1>
+        <hr />
+        <TodoList todos={currentNote.todos} />
+      </div>
+      <div className="todo-footer">
+        <button
+          type="button"
+          className="btn btn-outline-success btn-sm"
+          onClick={editHandler}
+        >
+          Редактировать заметку
         </button>
       </div>
     </div>
