@@ -1,178 +1,210 @@
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
 
 body {
-	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-		'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-		'Helvetica Neue', sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	position: relative;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
 }
 
 code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-		monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
 
 .note-link {
-	text-decoration: none;
-	color: #333;
-	&:hover {
-		color: #333;
-		text-decoration: none;
-		.note {
-			background: #e4e2e2;
-		}
-	}
-	.note {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		transition: background 0.2s ease-in;
-		strong {
-			margin-right: 1rem;
-		}
-	}
+  text-decoration: none;
+  color: #333;
+  &:hover {
+    color: #333;
+    text-decoration: none;
+    .note {
+      background: #e4e2e2;
+    }
+  }
+  .note {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s ease-in;
+    strong {
+      margin-right: 1rem;
+    }
+  }
 }
 
 .todos-group {
-	display: flex;
-	.form-control {
-		flex: 5;
-	}
-	.btn-warning {
-		flex: 1;
-		margin-left: 5px;
-	}
+  display: flex;
+  .form-control {
+    flex: 5;
+  }
+  .btn-warning {
+    flex: 1;
+    margin-left: 5px;
+  }
 }
 
 .todoItem-container {
-	.form-check {
-		ul {
-			padding-left: 0;
-			li.completed {
-				list-style: none;
-				background: url(assets/images/completed.png) no-repeat 0 4px;
-				padding-left: 25px;
-			}
-			li.not-completed {
-				list-style: none;
-				background: url(assets/images/not-completed.png) no-repeat 0 4px;
-				padding-left: 25px;
-			}
-		}
-	}
+  .form-check {
+    ul {
+      padding-left: 0;
+      li {
+        display: flex;
+        .form-check-input {
+          position: absolute;
+          margin-top: 0.7rem;
+          margin-left: -1.6rem;
+          width: 17px;
+          height: 17px;
+        }
+        .form-control {
+          flex: 1;
+        }
+        p {
+          flex: 1;
+        }
+        span {
+        }
+      }
+
+      li.completed {
+        list-style: none;
+        background: url(assets/images/completed.png) no-repeat 0 4px;
+        padding-left: 25px;
+      }
+      li.not-completed {
+        list-style: none;
+        background: url(assets/images/not-completed.png) no-repeat 0 4px;
+        padding-left: 25px;
+      }
+    }
+  }
 }
 
 .todo-page {
-	.todo-header {
-		display: flex;
-		text-align: center;
-		margin: 30px auto;
-		.editTitle-Button {
-			cursor: pointer;
-			margin: auto 30px;
-			padding: 2px 8px;
-			border: 2px solid #333;
-			color: #333;
-			border-radius: 5px;
-			transition: all 0.2s ease-in-out;
-			&:hover {
-				color: #fff;
-				background: #333;
-			}
-		}
-	}
-	.todo-footer {
-		display: flex;
-		margin: 30px auto;
-		button {
-			margin-right: 5px;
-			&:nth-child(1) {
-				flex: 1;
-			}
-			&:nth-child(2) {
-				flex: 1;
-			}
-		}
-	}
+  .todo-header {
+    display: flex;
+    text-align: center;
+    margin: 30px auto;
+  }
+  .todo-footer {
+    display: flex;
+    margin: 30px auto;
+    button {
+      margin-right: 5px;
+      &:nth-child(1) {
+        flex: 1;
+      }
+      &:nth-child(2) {
+        flex: 1;
+      }
+    }
+  }
 }
-
+.editButton {
+  cursor: pointer;
+  margin: auto 30px;
+  margin-right: 10px;
+  padding: 2px 8px;
+  border: 1px solid #333;
+  color: #333;
+  border-radius: 0.2rem;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    color: #fff;
+    background: #333;
+  }
+}
+.deleteButton {
+  cursor: pointer;
+  margin: auto;
+  padding: 2px 8px;
+  border: 1px solid red;
+  color: red;
+  border-radius: 0.2rem;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    color: #fff;
+    background: red;
+  }
+}
 .alert {
-	position: absolute;
-	right: 20px;
-	width: 30%;
-	z-index: 999;
+  position: absolute;
+  right: 20px;
+  width: 30%;
+  z-index: 999;
 }
 .my-modal {
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 100vh;
-	width: 100%;
-	z-index: 888;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  z-index: 888;
 
-	.modal-container {
-		position: relative;
-		margin: 60px auto;
-		max-width: 640px;
-		padding: 40px;
-		background: #fff;
-		z-index: 777;
-		.modal-title-container {
-			margin-bottom: 20px;
-			text-align: center;
-		}
-		.close {
-			position: absolute;
-			top: 20px;
-			right: 20px;
-		}
-	}
-	.modal-background {
-		position: absolute;
-		top: 0;
-		left: 0;
-		height: 100vh;
-		width: 100%;
-		background: rgba(51, 51, 51, 0.3);
-		z-index: 666;
-	}
+  .modal-container {
+    position: relative;
+    margin: 60px auto;
+    max-width: 640px;
+    padding: 40px;
+    background: #fff;
+    z-index: 777;
+    .modal-title-container {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+  }
+  .modal-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    background: rgba(51, 51, 51, 0.3);
+    z-index: 666;
+  }
 }
 
 .alert-enter {
-	opacity: 0;
+  opacity: 0;
 }
 
 .alert-enter-active {
-	transition: opacity 500ms ease-out;
-	opacity: 1;
+  transition: opacity 500ms ease-out;
+  opacity: 1;
 }
 
 .alert-exit-active {
-	transition: opacity 350ms ease-out;
-	opacity: 0;
+  transition: opacity 350ms ease-out;
+  opacity: 0;
 }
 
 .note-exit-active {
-	animation: note 800ms ease-out forwards;
+  animation: note 800ms ease-out forwards;
 }
 
 .note-enter-active {
-	animation: note 800ms ease-in alternate-reverse;
+  animation: note 800ms ease-in alternate-reverse;
 }
 
 @keyframes note {
-	0% {
-		transform: translateX(0);
-	}
-	30% {
-		opacity: 0.7;
-		transform: translateX(30px);
-	}
-	100% {
-		opacity: 0;
-		transform: translateX(-200px);
-	}
+  0% {
+    transform: translateX(0);
+  }
+  30% {
+    opacity: 0.7;
+    transform: translateX(30px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
 }
