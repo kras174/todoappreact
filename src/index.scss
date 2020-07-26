@@ -36,50 +36,72 @@ code {
   }
 }
 
-.todos-group {
-  display: flex;
-  .form-control {
-    flex: 5;
+form {
+  .add-todos-group {
+    display: flex;
+    .form-control {
+      flex: 10;
+    }
+    .btn {
+      flex: 1;
+      margin-left: 5px;
+    }
   }
-  .btn-warning {
-    flex: 1;
-    margin-left: 5px;
+  .todo-group {
+    display: flex;
+    margin-bottom: 5px;
+    .check-control {
+      flex: 1;
+      width: 36px;
+      height: 36px;
+      margin: auto;
+      .form-check-input {
+        position: relative;
+        margin: 0;
+        width: inherit;
+        height: inherit;
+      }
+    }
+    .form-control {
+      flex: 10;
+    }
+    .btn {
+      flex: 1;
+      margin-left: 5px;
+    }
   }
 }
 
 .todoItem-container {
-  .form-check {
-    ul {
-      padding-left: 0;
-      li {
-        display: flex;
-        .form-check-input {
-          position: absolute;
-          margin-top: 0.7rem;
-          margin-left: -1.6rem;
-          width: 17px;
-          height: 17px;
-        }
-        .form-control {
-          flex: 1;
-        }
-        p {
-          flex: 1;
-        }
-        span {
-        }
+  ul {
+    padding-left: 0;
+    margin-bottom: 0;
+    li {
+      display: flex;
+      .form-check-input {
+        position: absolute;
+        margin-top: 0.7rem;
+        margin-left: -1.6rem;
+        width: 17px;
+        height: 17px;
       }
+      .form-control {
+        flex: 1;
+      }
+      p {
+        flex: 1;
+      }
+    }
 
-      li.completed {
-        list-style: none;
-        background: url(assets/images/completed.png) no-repeat 0 4px;
-        padding-left: 25px;
-      }
-      li.not-completed {
-        list-style: none;
-        background: url(assets/images/not-completed.png) no-repeat 0 4px;
-        padding-left: 25px;
-      }
+    li.completed {
+      list-style: none;
+      background: url(assets/images/completed.png) no-repeat 0 4px;
+      padding-left: 25px;
+    }
+    li.not-completed {
+      list-style: none;
+      background: url(assets/images/not-completed.png) no-repeat 0 4px;
+      padding-left: 25px;
     }
   }
 }
@@ -87,6 +109,7 @@ code {
 .todo-page {
   .todo-header {
     display: flex;
+    justify-content: space-between;
     text-align: center;
     margin: 30px auto;
   }
@@ -193,6 +216,20 @@ code {
 
 .note-enter-active {
   animation: note 800ms ease-in alternate-reverse;
+}
+
+.todo-enter {
+  opacity: 0;
+}
+
+.todo-exit-active {
+  transition: opacity 350ms ease-out;
+  opacity: 0;
+}
+
+.todo-enter-active {
+  transition: opacity 350ms ease-out;
+  opacity: 1;
 }
 
 @keyframes note {

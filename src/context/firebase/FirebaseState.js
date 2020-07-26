@@ -56,7 +56,6 @@ export const FirebaseState = ({ children }) => {
       };
 
       dispatch({ type: ADD_NOTE, payload });
-      if (state.notes.length === 0) fetchNotes();
     } catch (e) {
       throw new Error(e.message);
     }
@@ -66,11 +65,11 @@ export const FirebaseState = ({ children }) => {
       await axios.delete(`${url}/notes/${id}.json`);
 
       dispatch({ type: REMOTE_NOTE, payload: id });
-      if (state.notes.length === 0) fetchNotes();
     } catch (e) {
       throw new Error(e.message);
     }
   };
+  //TODO: доработать метод !
   const updateNote = async (id, title, todos) => {
     const note = {
       title,
