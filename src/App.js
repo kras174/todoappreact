@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { About } from "./pages/About";
-import EditTodo from "./pages/EditTodo";
+import TodoPage from "./pages/TodoPage";
 import { Navbar } from "./components/Navbar";
 import { Alert } from "./components/Alert";
 import { AlertState } from "./context/alert/AlertState";
@@ -10,6 +10,7 @@ import { FirebaseState } from "./context/firebase/FirebaseState";
 import { ModalState } from "./context/modal/ModalState";
 
 function App() {
+  console.log("Render App");
   return (
     <FirebaseState>
       <AlertState>
@@ -21,7 +22,7 @@ function App() {
               <Switch>
                 <Route path={"/"} exact component={Home} />
                 <Route path={"/about"} component={About} />
-                <Route path={"/note=:id"} component={EditTodo} />
+                <Route path={"/note=:id"} component={TodoPage} />
               </Switch>
             </div>
           </BrowserRouter>

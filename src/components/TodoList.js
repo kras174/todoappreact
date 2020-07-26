@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import TodoItem from "./TodoItem";
 
 export default function TodoList({ todos }) {
+  console.log("Render TodoList");
   return (
     <Fragment>
       <div className="todoList-container">

@@ -1,31 +1,49 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { AlertContext } from "../context/alert/alertContext";
 import { ModalContext } from "../context/modal/modalContext";
 import { FirebaseContext } from "../context/firebase/firebaseContext";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
-export const Form = () => {
-  const [name, setName] = useState("");
+export const Form = ({ id, currentNote }) => {
+  const [title, setTitle] = useState("");
   const [value, setValue] = useState("");
   const [todos, setTodos] = useState([]);
 
   const alert = useContext(AlertContext);
   const modal = useContext(ModalContext);
-  const firebase = useContext(FirebaseContext);
+  const { addNote, updateNote } = useContext(FirebaseContext);
+
+  useEffect(() => {
+    if (currentNote) {
+      setTitle(currentNote.title);
+      setTodos(currentNote.todos);
+    }
+    // eslint-disable-next-line
+  }, []);
 
   const submitHandler = (event) => {
     event.preventDefault();
 
-    if (name.trim()) {
+    if (title.trim()) {
       if (todos.length > 0) {
-        firebase
-          .addNote(name.trim(), todos)
-          .then(() => {
-            alert.show("Заметка создана успешно!", "success");
-          })
-          .catch(() => {
-            alert.show("Что-то пошло не так", "danger");
-          });
+        if (currentNote) {
+          updateNote(id, title.trim(), todos)
+            .then(() => {
+              alert.show("Заметка отредактирована успешно!", "success");
+            })
+            .catch(() => {
+              alert.show("Что-то пошло не так", "danger");
+            });
+        } else {
+          addNote(title.trim(), todos)
+            .then(() => {
+              alert.show("Заметка создана успешно!", "success");
+            })
+            .catch(() => {
+              alert.show("Что-то пошло не так", "danger");
+            });
+        }
+
         modal.hide();
       } else {
         alert.show("Добавьте хотя бы одну задачу!");
@@ -75,8 +93,8 @@ export const Form = () => {
           type="text"
           className="form-control"
           placeholder="Введите название заметки"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
       </div>
       <hr />
@@ -130,7 +148,7 @@ export const Form = () => {
         <input
           className="btn btn-success"
           type="submit"
-          value="Создать заметку"
+          value={currentNote ? "Сохранить заметку" : "Создать заметку"}
         />
       </div>
     </form>
