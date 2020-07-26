@@ -7,7 +7,7 @@ export const Form = () => {
   const [name, setName] = useState("");
   const [value, setValue] = useState("");
   const [todos, setTodos] = useState([]);
-  const [todoTitle, setTodoTitle] = useState([]);
+
   const alert = useContext(AlertContext);
   const modal = useContext(ModalContext);
   const firebase = useContext(FirebaseContext);
@@ -36,7 +36,7 @@ export const Form = () => {
     }
   };
 
-  const addTodo = () => {
+  const addTodoHandler = () => {
     let todo = {};
     if (value.trim()) {
       todo = {
@@ -50,11 +50,23 @@ export const Form = () => {
     }
   };
 
-  const deleteTodo = (index) => {
+  const deleteTodoHandler = (index) => {
     let todo = [...todos];
     todo.splice(index, 1);
     setTodos(todo);
     alert.show("Задача удалена");
+  };
+
+  const changeTodoTitleHandler = (index, e) => {
+    let todo = [...todos];
+    todo[index].title = e.target.value;
+    setTodos(todo);
+  };
+
+  const changeTodoStatusHandler = (index) => {
+    let todo = [...todos];
+    todo[index].isCompleted = !todo[index].isCompleted;
+    setTodos(todo);
   };
 
   return (
@@ -80,7 +92,7 @@ export const Form = () => {
           className="btn btn-warning"
           type="button"
           value="+"
-          onClick={addTodo}
+          onClick={addTodoHandler}
         />
       </div>
       <div className="form-group todos-group">
@@ -88,20 +100,24 @@ export const Form = () => {
           ? todos.map((todo, index) => (
               <div className="todo-group" key={index}>
                 <div className="check-control">
-                  <input type="checkbox" className="form-check-input" />
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    onChange={(e) => changeTodoStatusHandler(index)}
+                  />
                 </div>
                 <input
                   type="text"
                   className="form-control"
                   placeholder="Введите задачу"
                   value={todo.title}
-                  onChange={(e) => setTodoTitle(e.target.value)}
+                  onChange={(e) => changeTodoTitleHandler(index, e)}
                 />
                 <input
                   className="btn btn-danger"
                   type="button"
                   value="X"
-                  onClick={deleteTodo.bind(this, index)}
+                  onClick={() => deleteTodoHandler(index)}
                 />
               </div>
             ))
