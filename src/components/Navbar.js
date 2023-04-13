@@ -7,7 +7,7 @@ export const Navbar = () => (
       <div className="navbar-brand">TODO React App</div>
       <ul className="navbar-nav">
         <li className="nav-item">
-          <NavLink className="nav-link" to="/" exact>
+          <NavLink className="nav-link" to="/" exact='true'>
             Главная
           </NavLink>
         </li>

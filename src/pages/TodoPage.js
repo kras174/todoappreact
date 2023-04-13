@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { FirebaseContext } from "../context/firebase/firebaseContext";
 import { AlertContext } from "../context/alert/alertContext";
@@ -11,7 +11,7 @@ import { Form } from "../components/Form";
 import { Loader } from "../components/Loader";
 
 export default function TodoPage(props) {
-  console.log("Render TodoPage");
+  const navigate = useNavigate()
 
   const { notes, removeNote, fetchNotes, loading } = useContext(
     FirebaseContext
@@ -49,7 +49,7 @@ export default function TodoPage(props) {
               type="button"
               className="btn btn-outline-warning btn-sm"
               onClick={() => {
-                props.history.push("/");
+                navigate(`/`)
               }}
             >
               Назад
@@ -60,7 +60,7 @@ export default function TodoPage(props) {
               onClick={() => {
                 alert.show("Заметка удалена успешно!", "danger");
                 removeNote(currentNote.id);
-                props.history.push("/");
+                navigate(`/`)
               }}
             >
               Удалить заметку

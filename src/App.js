@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { About } from "./pages/About";
 import TodoPage from "./pages/TodoPage";
@@ -19,11 +19,13 @@ function App() {
             <Navbar />
             <div className="main container pt-4">
               <Alert />
-              <Switch>
-                <Route path={"/"} exact component={Home} />
-                <Route path={"/about"} component={About} />
-                <Route path={"/note=:id"} component={TodoPage} />
-              </Switch>
+              <Routes>
+                <Route path={"/"} exact='true' element={<Home />} />
+                <Route path={"/about"} element={<About />} />
+                <Route path={"/note"}>
+                  <Route path={":id"} element={<TodoPage />} />
+                </Route>
+              </Routes>
             </div>
           </BrowserRouter>
         </ModalState>
